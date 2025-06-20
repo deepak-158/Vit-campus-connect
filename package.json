@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Full-stack web application for VIT Bhopal students to connect hostellers and day scholars",  "scripts": {
     "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
-    "start": "cd backend && npm start",
+    "start": "cd backend && npm install --only=production && npm start",
     "start:backend": "cd backend && npm start",
     "start:frontend": "cd frontend && npm start",
     "dev:backend": "cd backend && npm run dev",
@@ -11,7 +11,8 @@
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "seed": "cd backend && npm run seed",
     "build:frontend": "cd frontend && npm run build",
-    "deploy:backend": "cd backend && npm start"
+    "deploy:backend": "cd backend && npm start",
+    "postinstall": "cd backend && npm install --only=production"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
