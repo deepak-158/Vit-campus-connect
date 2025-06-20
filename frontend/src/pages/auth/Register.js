@@ -142,7 +142,7 @@ const Register = () => {
           type="text"
           value={formData.name}
           onChange={handleChange}
-          placeholder="John Doe"
+          placeholder="Deepak Shukla"
           error={errors.name}
           required
           autoComplete="name"
@@ -155,7 +155,7 @@ const Register = () => {
           type="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="your.name@vitbhopal.ac.in"
+          placeholder="name.regno@vitbhopal.ac.in"
           error={errors.email}
           required
           autoComplete="email"

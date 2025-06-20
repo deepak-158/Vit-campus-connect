@@ -99,7 +99,7 @@ const ForgotPassword = () => {
           type="email"
           value={email}
           onChange={handleEmailChange}
-          placeholder="your.name@vitbhopal.ac.in"
+          placeholder="name.regno@vitbhopal.ac.in"
           error={error}
           required
           autoComplete="email"

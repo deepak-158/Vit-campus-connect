@@ -106,7 +106,7 @@ const Login = () => {
           type="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="your.name@vitbhopal.ac.in"
+          placeholder="name.regno@vitbhopal.ac.in"
           error={errors.email}
           required
           autoComplete="email"
