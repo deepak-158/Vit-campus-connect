@@ -24,7 +24,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build:prod": "GENERATE_SOURCEMAP=false REACT_APP_DISABLE_DEVTOOLS=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

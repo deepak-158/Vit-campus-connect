@@ -7,7 +7,11 @@ import { AuthProvider } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
 import { ToastContainer } from 'react-toastify';
 import ErrorBoundary from './components/ui/ErrorBoundary';
+import removeConsoleLogs from './utils/removeConsoleLogs';
 import 'react-toastify/dist/ReactToastify.css';
+
+// Remove console logs in production
+removeConsoleLogs();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

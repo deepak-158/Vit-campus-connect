@@ -13,6 +13,14 @@ const session = require('express-session');
 // Load environment variables
 dotenv.config({ path: path.join(__dirname, '.env') });
 
+// Disable console logs in production
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {};
+  console.warn = () => {};
+  console.debug = () => {};
+  console.info = () => {};
+}
+
 // Import routes
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
@@ -21,6 +29,7 @@ const productRoutes = require('./routes/product.routes');
 const chatRoutes = require('./routes/chat.routes');
 const ratingRoutes = require('./routes/rating.routes');
 const dashboardRoutes = require('./routes/dashboard.routes');
+const notificationRoutes = require('./routes/notification.routes');
 
 // Create Express app
 const app = express();
@@ -67,6 +76,7 @@ app.use('/api/requests', requestRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/ratings', ratingRoutes);
+app.use('/api/notifications', notificationRoutes);
 app.use('/api', dashboardRoutes);
 
 // Debug endpoint to check database

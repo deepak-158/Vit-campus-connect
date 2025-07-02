@@ -57,10 +57,9 @@ const NotificationDropdown = () => {
   
   const fetchNotifications = async () => {
     try {
-      setLoading(true);
-      const response = await api.get('/notifications');
+      setLoading(true);      const response = await api.get('/notifications');
       setNotifications(response.data.notifications);
-      setUnreadCount(response.data.notifications.filter(notif => !notif.read).length);
+      setUnreadCount(response.data.notifications.filter(notif => !notif.isRead).length);
     } catch (error) {
       console.error('Error fetching notifications:', error);
       setError('Failed to load notifications');
@@ -70,11 +69,10 @@ const NotificationDropdown = () => {
   };
   
   // Mark all notifications as read
-  const markAllAsRead = async () => {
-    try {
+  const markAllAsRead = async () => {    try {
       await api.put('/notifications/read-all');
       setNotifications(prev => 
-        prev.map(notif => ({ ...notif, read: true }))
+        prev.map(notif => ({ ...notif, isRead: true }))
       );
       setUnreadCount(0);
     } catch (error) {
@@ -85,11 +83,10 @@ const NotificationDropdown = () => {
   
   // Mark a single notification as read
   const markAsRead = async (id) => {
-    try {
-      await api.put(`/notifications/${id}/read`);
+    try {      await api.put(`/notifications/${id}/read`);
       setNotifications(prev => 
         prev.map(notif => 
-          notif.id === id ? { ...notif, read: true } : notif
+          notif.id === id ? { ...notif, isRead: true } : notif
         )
       );
       setUnreadCount(prev => (prev > 0 ? prev - 1 : 0));
@@ -224,29 +221,25 @@ const NotificationDropdown = () => {
                   
                   return (
                     <Menu.Item key={notification.id}>
-                      {({ active }) => (
-                        <Link
+                      {({ active }) => (                        <Link
                           to={link}
                           className={`${
                             active ? 'bg-gray-50' : ''
-                          } block px-4 py-3 ${!notification.read ? 'bg-blue-50' : ''}`}
-                          onClick={() => !notification.read && markAsRead(notification.id)}
+                          } block px-4 py-3 ${!notification.isRead ? 'bg-blue-50' : ''}`}
+                          onClick={() => !notification.isRead && markAsRead(notification.id)}
                         >
                           <div className="flex">
-                            <div className="flex-shrink-0 mr-3">
-                              <div className={`h-8 w-8 rounded-full ${!notification.read ? 'bg-primary-100' : 'bg-gray-100'} flex items-center justify-center`}>
-                                <Icon className={`h-5 w-5 ${!notification.read ? 'text-primary-600' : 'text-gray-500'}`} />
+                            <div className="flex-shrink-0 mr-3">                              <div className={`h-8 w-8 rounded-full ${!notification.isRead ? 'bg-primary-100' : 'bg-gray-100'} flex items-center justify-center`}>
+                                <Icon className={`h-5 w-5 ${!notification.isRead ? 'text-primary-600' : 'text-gray-500'}`} />
                               </div>
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className={`text-sm font-medium ${!notification.read ? 'text-gray-900' : 'text-gray-700'}`}>
+                            <div className="flex-1 min-w-0">                              <p className={`text-sm font-medium ${!notification.isRead ? 'text-gray-900' : 'text-gray-700'}`}>
                                 {notification.message}
                               </p>
                               <p className="text-xs text-gray-500 mt-1">
                                 {formatRelativeTime(notification.createdAt)}
                               </p>
-                            </div>
-                            {!notification.read && (
+                            </div>                            {!notification.isRead && (
                               <div className="flex-shrink-0 ml-3 self-center">
                                 <div className="h-2 w-2 rounded-full bg-primary-600"></div>
                               </div>

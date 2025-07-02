@@ -16,5 +16,71 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    
+    <!-- Disable Developer Tools in Production -->
+    <script>
+      // Disable right-click context menu
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+      });
+
+      // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+      document.addEventListener('keydown', function(e) {
+        // F12
+        if (e.keyCode === 123) {
+          e.preventDefault();
+          return false;
+        }
+        // Ctrl+Shift+I (Inspector)
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+          e.preventDefault();
+          return false;
+        }
+        // Ctrl+Shift+J (Console)
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+          e.preventDefault();
+          return false;
+        }
+        // Ctrl+U (View Source)
+        if (e.ctrlKey && e.keyCode === 85) {
+          e.preventDefault();
+          return false;
+        }
+        // Ctrl+Shift+C (Element Selector)
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Detect if DevTools is open
+      let devtools = {
+        open: false,
+        orientation: null
+      };
+      
+      setInterval(function() {
+        if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+          if (!devtools.open) {
+            devtools.open = true;
+            // Redirect or show warning
+            document.body.innerHTML = '<h1 style="color: red; text-align: center; margin-top: 50px;">Developer tools detected! Access denied.</h1>';
+          }
+        } else {
+          devtools.open = false;
+        }
+      }, 500);
+
+      // Disable text selection
+      document.onselectstart = function() {
+        return false;
+      };
+      
+      // Disable drag
+      document.ondragstart = function() {
+        return false;
+      };
+    </script>
   </body>
 </html>
